@@ -22,12 +22,12 @@ Program::~Program(){
 
 
 
-void Program::build(SiteMan sites){
-
+int Program::build(SiteMan* sites){
+	std::cerr << "Not impletented yet" << std::endl;
+	return 2; // mettre 0 apres l'implementation ! (2 indique une erreur)
 }
 
 
-string Program::solve(){
-
-	return  NULL;
+std::string Program::solve(){
+	return  "Not implemented yet";
 }

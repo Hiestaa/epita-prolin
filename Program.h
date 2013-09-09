@@ -8,6 +8,7 @@
 #if !defined(EA_B9ACFDE7_CB62_468a_AB77_44879545335D__INCLUDED_)
 #define EA_B9ACFDE7_CB62_468a_AB77_44879545335D__INCLUDED_
 
+#include <string>
 #include "SiteMan.h"
 
 class Program
@@ -18,11 +19,11 @@ public:
 	virtual ~Program();
 	SiteMan *m_SiteMan;
 
-	void build(SiteMan sites);
-	string solve();
+	int build(SiteMan* sites);
+	std::string solve();
 
 private:
-	prob;
+	char* prob; // doit contenir l'objet problem cree par l'api GLPK
 
 };
 #endif // !defined(EA_B9ACFDE7_CB62_468a_AB77_44879545335D__INCLUDED_)

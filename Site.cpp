@@ -12,7 +12,12 @@ Site::Site(){
 
 }
 
-
+Site::Site(int sid, int x, int y, int c) {
+  this->id = sid;
+  this->pos_x = x;
+  this->pos_y = y;
+  this->cap = c;
+}
 
 Site::~Site(){
 

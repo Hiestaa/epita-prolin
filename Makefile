@@ -19,5 +19,5 @@ plam: $(OBJ)
 clean:
 	@rm -rf *.o
 
-mrproper: clean
+distclean: clean
 	@rm -rf $(EXEC)
