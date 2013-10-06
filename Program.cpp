@@ -29,5 +29,30 @@ int Program::build(SiteMan* sites){
 
 
 std::string Program::solve(){
-	return  "Not implemented yet";
+ /*partie solve*/
+
+  /* solve problem */
+  glp_simplex(lp, NULL);
+  /* recover and display results */
+  z = glp_get_obj_val(lp);
+
+  i = 0;
+  int x[m];
+  while (i < m + 1)
+  {
+     x[i] = glp_get_col_prim(lp, i);
+     i++;
+  }
+  i = 0;
+  while (i < m + 1)
+  {
+        printf("x = %g;\n”, x[i]);
+  }
+ 
+ /* housekeeping */
+
+  glp_delete_prob(lp);
+  glp_free_env();
+  return 0;
 }
+	
