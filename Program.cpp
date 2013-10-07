@@ -45,8 +45,9 @@ glp_set_obj_dir(lp, GLP_MAX);
  glp_add_rows(lp, 3);
  //to change
 
+//faudra faire passer m dans la fonction
  glp_set_row_name(lp, 1, "m");
- glp_set_row_bnds(lp, 1, GLP_UP, 0.0, 100000.0);
+ glp_set_row_bnds(lp, 1, GLP_FX, m, m);
 
  //equation de maximise
 //fonction maximiser
@@ -54,7 +55,7 @@ glp_set_obj_dir(lp, GLP_MAX);
 
 //attribution de x1 x2 avec ces coeffs dans la fonction maximise
 glp_add_cols(lp, n);
-j = 1;
+int j = 1;
 while(j < n)
 {
 	//strcat correct coeff a changer
@@ -70,7 +71,7 @@ j++;
 // nous on a deux equation de contrainte
 //1er equation :(B1 + ... Bn) = m qui correspond a 
 //tant que la liste des sites man n est pas nuls placer les coeffs Ci devant les xi, manque l'attribution des coefficient Ci
-i = 0;
+int i = 0;
 while (i < n)
 {
  ia[1] = 1, ja[i] = 1, ar[1] = 1;   
@@ -82,16 +83,20 @@ i++;
 //dij(Bi + Bj) <=1 si i diff de j
 //dij = sqrt((xi-xj)^2+(yi-yj)^2)
 
-j = 1;
+int j = 1;
 while(j < n)
 {
 	//strcat correct coeff a changer
 glp_set_col_name(lp, 1, strcat("x",itoa(i)));
-glp_set_col_bnds(lp, 1, GLP_LO, 0.0, 1.0);
+glp_set_col_bnds(lp, 1, GLP_DB, 0.0, 1.0);
 glp_set_obj_coef(lp, 1, 10. 0);
 j++;
 }
 
+	//ligne a modif apres
+	glp_load_matrix(lp, 9, ia, ja, ar);
+	// ligne a modif apres
+    glp_simplex(lp, NULL);
         //finir la fonction et connecter solve avec le reste
 	//fonction distance a faire + tard
 	//surement getter et setter des sites à mettre en place
@@ -110,7 +115,7 @@ std::string Program::solve(){
   double z;
   z = glp_get_obj_val(lp);
 
-  i = 0;
+  int i = 0;
   int x[m];
   while (i < m + 1)
   {
