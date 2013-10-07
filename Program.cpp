@@ -48,6 +48,14 @@ glp_set_obj_dir(lp, GLP_MAX);
  glp_set_row_name(lp, 1, "m");
  glp_set_row_bnds(lp, 1, GLP_FX, m, m);
 
+int x = 2;
+while (x < ((n^2-n)/2 + 2 ))
+{
+ glp_set_row_name(lp, x, strcat("x",itoa(x)));
+ glp_set_col_kind(lp, x, GLP_BV);
+ glp_set_row_bnds(lp, x, GLP_DB, 0, 1);
+ x++;
+}
  //equation de maximise
 //fonction maximiser
 //B1*C1 + ... Bn*Cn 
@@ -82,13 +90,7 @@ i++;
 //dij(Bi + Bj) <=1 si i diff de j
 //dij = sqrt((xi-xj)^2+(yi-yj)^2)
 
-int x = 2;
-  while (x < ((n^2-n)/2 + 2 ))
-  {
-   glp_set_row_name(lp, x, strcat("x",itoa(x)));
-   glp_set_row_bnds(lp, x, GLP_DB, 0, 1);
-   x++;
-  }
+
  //tot = nombre de rencontre entre i et j dans un paquets de n ou i et j sont differents
   y = 2;
   for (int i = 1; i < n; i++)
