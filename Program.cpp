@@ -73,7 +73,7 @@ j++;
 int i = 0;
 while (i < n)
 {
- ia[1] = 1, ja[i] = 1, ar[1] = 1;   
+ ia[1] = 1, ja[1] = i, ar[1] = 1;   
  //coeff i
 i++;
 }
@@ -90,6 +90,7 @@ int x = 2;
    x++;
   }
  //tot = nombre de rencontre entre i et j dans un paquets de n ou i et j sont differents
+  y = 2;
   for (int i = 1; i < n; i++)
   {
   for (int j = 1; j < i; j++)
@@ -97,10 +98,10 @@ int x = 2;
 // dij(Bi + Bj) <=1 donc rajouter le <= 1
   if (i <> j)
   {
-   ia[] = 1, ja[] = 1, ar[1] = d[i][j];   
-   ia[] = 1, ja[] = 1, ar[1] = d[i][j];
+   ia[y] = y, ja[y] = 1, ar[y] = d[i][j];   
+   ia[y] = y, ja[y] = 2, ar[y] = d[i][j];
    //coeff ar[]  a changer ici dij
-   i++;
+   y++;
   }
   }
   }
