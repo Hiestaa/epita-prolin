@@ -106,6 +106,7 @@ std::string Program::solve(){
   /* solve problem */
   glp_simplex(lp, NULL);
   /* recover and display results */
+  double z;
   z = glp_get_obj_val(lp);
 
   i = 0;
