@@ -1,7 +1,7 @@
 
 CC=g++
-CFLAGS=-W -Wall -ansi -pedantic
-LDFLAGS=
+CFLAGS=-W -Wall -ansi -pedantic -lglpk
+LDFLAGS=-lglpk
 EXEC=plam
 SRC= $(wildcard *.cpp)
 OBJ= $(SRC:.cpp=.o)
