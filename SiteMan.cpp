@@ -74,7 +74,8 @@ int SiteMan::parse(const char* filename){
 			atoi(site_data[0].c_str()),
 			atoi(site_data[1].c_str()),
 			atoi(site_data[2].c_str()),
-			atoi(site_data[3].c_str())));
+			atoi(site_data[3].c_str()),
+			false));
 	}
 
 	return ret;
