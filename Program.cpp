@@ -55,7 +55,6 @@ int Program::build(SiteMan* sites){
   while (x < (((n^2)-n)/2 + 2 ))
   {
     glp_set_row_name(lp, x, num2str(x).c_str());
-    glp_set_col_kind(lp, x, GLP_BV);
     glp_set_row_bnds(lp, x, GLP_DB, 0, 1);
     x++;
   }
