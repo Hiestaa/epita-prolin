@@ -131,6 +131,8 @@ std::string Program::solve(int m){
   double z;
   z = glp_get_obj_val(lp);
 
+  std::cout << "Total storage: " << z << std::endl;
+
   int i = 0;
   
   while (i < m + 1)
