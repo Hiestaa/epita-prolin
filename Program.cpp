@@ -40,20 +40,29 @@ glp_set_obj_dir(lp, GLP_MAX);
 
 //debut de la creation de l'equation de contrainte x1 + x2 + x3 = m
 //je l ai fait comme cela car c etait dans cet ordre la dans les exemples
+ 
+ //to change
+ glp_add_rows(lp, 3);
+ //to change
+
  glp_set_row_name(lp, 1, "m");
- glp_set_row_bnds(lp, 1, GLP_UP, 0.0, 100.0);
+ glp_set_row_bnds(lp, 1, GLP_UP, 0.0, 100000.0);
 
  //equation de maximise
 //fonction maximiser
 //B1*C1 + ... Bn*Cn 
 
 //attribution de x1 x2 avec ces coeffs dans la fonction maximise
-glp_set_col_name(lp, 1, "x1");
-glp_set_col_bnds(lp, 1, GLP_LO, 0.0, 0.0);
-glp_set_obj_coef(lp, 1, 10.0);
-glp_set_col_name(lp, 2, "x2");
-glp_set_col_bnds(lp, 2, GLP_LO, 0.0, 0.0);
-glp_set_obj_coef(lp, 2, 6.0);
+glp_add_cols(lp, n);
+j = 1;
+while(j < n)
+{
+	//strcat correct coeff a changer
+glp_set_col_name(lp, 1, strcat("x",itoa(i)));
+glp_set_col_bnds(lp, 1, GLP_LO, 0.0, 1.0);
+glp_set_obj_coef(lp, 1, 10. 0);
+j++;
+}
 
 
 //equation de contrainte representer de maniere matricielle Mij, i represente les lignes et j les colonnes r etant la valeur
@@ -72,9 +81,15 @@ i++;
 //dij(Bi + Bj) <=1 si i diff de j
 //dij = sqrt((xi-xj)^2+(yi-yj)^2)
 
-
-
-
+j = 1;
+while(j < n)
+{
+	//strcat correct coeff a changer
+glp_set_col_name(lp, 1, strcat("x",itoa(i)));
+glp_set_col_bnds(lp, 1, GLP_LO, 0.0, 1.0);
+glp_set_obj_coef(lp, 1, 10. 0);
+j++;
+}
 
         //finir la fonction et connecter solve avec le reste
 	//fonction distance a faire + tard
