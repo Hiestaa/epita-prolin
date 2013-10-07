@@ -27,7 +27,9 @@ int Program::build(SiteMan* sites){
   int n = sites->get_nb_sites();
   int m = sites->get_nb_to_build();
   int d[1000][1000];
+  std::cout << "Calculating distance matrix" << std::endl;
   sites->get_dist_mat(50, d);
+  std::cout << "Creating linear problem" << std::endl;
   //j'ai rajouter des booléens aux sites
   //parti init du problème
   //Ci est fixe
@@ -41,8 +43,9 @@ int Program::build(SiteMan* sites){
 
   //debut de la creation de l'equation de contrainte x1 + x2 + x3 = m
   //je l ai fait comme cela car c etait dans cet ordre la dans les exemples
- 
   glp_add_rows(lp, (square(n)-n)/2);
+  //attribution de x1 x2 avec ces coeffs dans la fonction maximise
+  glp_add_cols(lp, n);
 
   //faudra faire passer m dans la fonction
   glp_set_row_name(lp, 1, "m");
@@ -51,7 +54,7 @@ int Program::build(SiteMan* sites){
   int x = 2;
   while (x < (((n^2)-n)/2 + 2 ))
   {
-    glp_set_row_name(lp, x, strcat("x",num2str(x).c_str()));
+    glp_set_row_name(lp, x, num2str(x).c_str());
     glp_set_col_kind(lp, x, GLP_BV);
     glp_set_row_bnds(lp, x, GLP_DB, 0, 1);
     x++;
@@ -60,13 +63,13 @@ int Program::build(SiteMan* sites){
   //fonction maximiser
   //B1*C1 + ... Bn*Cn 
 
-  //attribution de x1 x2 avec ces coeffs dans la fonction maximise
-  glp_add_cols(lp, n);
+
+
   int j = 1;
   while(j < n)
   {
 	 //strcat correct coeff a changer
-    glp_set_col_name(lp, j, strcat("x",num2str(j).c_str()));
+    glp_set_col_name(lp, j, num2str(j).c_str());
     glp_set_col_kind(lp, j, GLP_BV);
     glp_set_col_bnds(lp, j, GLP_DB, 0, 1);
     glp_set_obj_coef(lp, j, sites->get(j)->cap);
