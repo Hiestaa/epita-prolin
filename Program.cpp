@@ -136,7 +136,7 @@ std::string Program::solve(int m){
   i = 0;
   while (i < m + 1)
   {
-        printf("x = %g;\n", x[i]);
+        printf("x%u = %g;\n",i, x[i]);
         i++;
   }
  
