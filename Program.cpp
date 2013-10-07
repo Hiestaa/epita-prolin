@@ -85,16 +85,28 @@ i++;
 //dij(Bi + Bj) <=1 si i diff de j
 //dij = sqrt((xi-xj)^2+(yi-yj)^2)
 
-int j = 1;
-while(j < n)
-{
-	//strcat correct coeff a changer
-glp_set_col_name(lp, 1, strcat("x",itoa(i)));
-glp_set_col_bnds(lp, 1, GLP_DB, 0.0, 1.0);
-glp_set_obj_coef(lp, 1, 10. 0);
-j++;
-}
-
+int x = 2;
+  while (x < ((n^2-n)/2 + 2 ))
+  {
+   glp_set_row_name(lp, x, strcat("x",itoa(x)));
+   glp_set_row_bnds(lp, x, GLP_DB, 0.0, 1.0);
+   x++;
+  }
+ //tot = nombre de rencontre entre i et j dans un paquets de n ou i et j sont differents
+  for (int i = 1; i < n; i++)
+  {
+  for (int j = 1; j < i; j++)
+  {
+// dij(Bi + Bj) <=1 donc rajouter le <= 1
+  if (i <> j)
+  {
+   ia[] = 1, ja[] = 1, ar[1] = 1;   
+   ia[] = 1, ja[] = 1, ar[1] = 1;
+   //coeff ar[]  a changer ici dij
+   i++;
+  }
+  }
+  }
 	//ligne a modif apres
 	glp_load_matrix(lp, 9, ia, ja, ar);
 	// ligne a modif apres
