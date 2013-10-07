@@ -65,7 +65,7 @@ int Program::build(SiteMan* sites){
   while(j < n)
   {
 	 //strcat correct coeff a changer
-    glp_set_col_name(lp, j, strcat("x",itoa(i)));
+    glp_set_col_name(lp, j, strcat("x",itoa(j)));
     glp_set_col_kind(lp, j, GLP_BV);
     glp_set_col_bnds(lp, j, GLP_DB, 0, 1);
     glp_set_obj_coef(lp, j, sites->get(j)->cap);
@@ -91,13 +91,13 @@ int Program::build(SiteMan* sites){
 
 
   //tot = nombre de rencontre entre i et j dans un paquets de n ou i et j sont differents
-  y = 2;
+  int y = 2;
   for (int i = 1; i < n; i++)
   {
     for (int j = 1; j < i; j++)
     {
       // dij(Bi + Bj) <=1 donc rajouter le <= 1
-      if (i <> j)
+      if (i != j)
       {
         ia[y] = y, ja[y] = 1, ar[y] = d[i][j];   
         ia[y] = y, ja[y] = 2, ar[y] = d[i][j];
@@ -128,16 +128,10 @@ std::string Program::solve(int m){
   z = glp_get_obj_val(lp);
 
   int i = 0;
-  int x[m];
+  
   while (i < m + 1)
   {
-     x[i] = glp_get_col_prim(lp, i);
-     i++;
-  }
-  i = 0;
-  while (i < m + 1)
-  {
-        printf("x%u = %g;\n",i, x[i]);
+        printf("x%u = %g;\n",i, glp_get_col_prim(lp, i));
         i++;
   }
  
