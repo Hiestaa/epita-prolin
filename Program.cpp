@@ -106,7 +106,7 @@ int x = 2;
   }
   }
 	//ligne a modif apres
-	glp_load_matrix(lp, 9, ia, ja, ar);
+	glp_load_matrix(lp,(square(n)-n)/2, ia, ja, ar);
 	// ligne a modif apres
     glp_simplex(lp, NULL);
         //finir la fonction et connecter solve avec le reste
