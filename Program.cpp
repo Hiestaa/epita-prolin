@@ -58,9 +58,10 @@ j = 1;
 while(j < n)
 {
 	//strcat correct coeff a changer
-glp_set_col_name(lp, 1, strcat("x",itoa(i)));
-glp_set_col_bnds(lp, 1, GLP_LO, 0.0, 1.0);
-glp_set_obj_coef(lp, 1, 10. 0);
+glp_set_col_name(lp, j, strcat("x",itoa(i)));
+glp_set_col_kind(lp, j, GLP_BV);
+glp_set_col_bnds(lp, j, GLP_DB, 0, 1);
+glp_set_obj_coef(lp, j, sites->get(j)->cap);
 j++;
 }
 
