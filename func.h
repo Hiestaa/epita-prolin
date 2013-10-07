@@ -17,5 +17,5 @@
 std::vector<std::string> split(const std::string &s, char delim);
 int square(int n);
 int sqdist(int x1, int y1, int x2, int y2);
-
+std::string num2str(int n);
 #endif // !defined(__FUNC__INCLUDED_)

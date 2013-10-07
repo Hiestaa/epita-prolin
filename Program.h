@@ -11,6 +11,7 @@
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstring>
 #include <glpk.h>
 #include "SiteMan.h"
 

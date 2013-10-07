@@ -26,7 +26,8 @@ int Program::build(SiteMan* sites){
   double ar[1+1000];
   int n = sites->get_nb_sites();
   int m = sites->get_nb_to_build();
-  int* d = sites->get_dist_mat(50);
+  int d[1000][1000];
+  sites->get_dist_mat(50, d);
   //j'ai rajouter des booléens aux sites
   //parti init du problème
   //Ci est fixe
@@ -50,7 +51,7 @@ int Program::build(SiteMan* sites){
   int x = 2;
   while (x < (((n^2)-n)/2 + 2 ))
   {
-    glp_set_row_name(lp, x, strcat("x",itoa(x)));
+    glp_set_row_name(lp, x, strcat("x",num2str(x).c_str()));
     glp_set_col_kind(lp, x, GLP_BV);
     glp_set_row_bnds(lp, x, GLP_DB, 0, 1);
     x++;
@@ -65,7 +66,7 @@ int Program::build(SiteMan* sites){
   while(j < n)
   {
 	 //strcat correct coeff a changer
-    glp_set_col_name(lp, j, strcat("x",itoa(j)));
+    glp_set_col_name(lp, j, strcat("x",num2str(j).c_str()));
     glp_set_col_kind(lp, j, GLP_BV);
     glp_set_col_bnds(lp, j, GLP_DB, 0, 1);
     glp_set_obj_coef(lp, j, sites->get(j)->cap);

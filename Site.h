@@ -14,7 +14,7 @@ class Site
 
 public:
 	Site();
-	Site(int sid, int x, int y, int c);
+	Site(int sid, int x, int y, int c, bool bo);
 	virtual ~Site();
 	int cap;
 	int id;

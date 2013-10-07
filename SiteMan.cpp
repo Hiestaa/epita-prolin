@@ -82,18 +82,18 @@ int SiteMan::parse(const char* filename){
 }
 
 
-int* get_dist_map(int dist_max) {
-	int dist_map[1000][1000];
+int* SiteMan::get_dist_map(int dist_max, int* dist_map) {
+	//int * dist_map = new int[dist_max][dist_max];
 	int dist = 0;
 	Site* s1, s2;
-	for (int i = 0; i < sites->size(); ++i) {	
-		for (int j = 0; j < sites->size(); ++j)	{
+	for (int i = 0; i < this->sites->size(); ++i) {	
+		for (int j = 0; j < this->sites->size(); ++j)	{
 			if (i == j) {
 				dist_map[i][j] = -1;
 			}
 			else {
-				s1 = this->get(i);
-				s2 = this->get(j);
+				s1 = get(i);
+				s2 = get(j);
 
 				if (sqdist(s1->pos_x, s1->pos_y, s2->pos_x, s2->pos_y) <= square(dist_max)) {
 					dist_map[i][j] = 1;
@@ -108,7 +108,7 @@ int* get_dist_map(int dist_max) {
 }
 
 Site* SiteMan::get(int pos) {
-	return this->sites->at(pos);
+	return sites->at(pos);
 }
 
 int SiteMan::get_nb_to_build() {
@@ -116,5 +116,5 @@ int SiteMan::get_nb_to_build() {
 }
 
 int SiteMan::get_nb_sites() {
-	return this->sites->size();
+	return sites->size();
 }
