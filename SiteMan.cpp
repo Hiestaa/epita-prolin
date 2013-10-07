@@ -86,8 +86,8 @@ void SiteMan::get_dist_mat(int dist_max, int dist_map[1000][1000]) {
 	//int * dist_map = new int[dist_max][dist_max];
 	Site* s1;
 	Site* s2;
-	for (int i = 0; i < this->sites->size(); ++i) {	
-		for (int j = 0; j < this->sites->size(); ++j)	{
+	for (uint i = 0; i < this->sites->size(); ++i) {	
+		for (uint j = 0; j < this->sites->size(); ++j)	{
 			if (i == j) {
 				dist_map[i][j] = -1;
 			}
