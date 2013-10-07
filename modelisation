@@ -9,5 +9,5 @@ MAXIMISER :
 Sous les contraintes
 	SOMME(Bi) = m <=> B1 + B2 + B3 + B4 ... + Bn = m
 		On doit choisir exactement m sites
-	Dij * (Bi + Bj) <= 1 si i != j
+	Dij * (Bi + Bj) <= 1 si i != j <=> Dij * Bi + Dij * Bj <= 1
 		Si deux sites (differents) sont choisi, leur distance doit etre inferieure a la limite
