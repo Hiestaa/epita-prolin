@@ -6,7 +6,9 @@
 ///////////////////////////////////////////////////////////
 
 #include "Program.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <glpk.h>
 
 Program::Program(){
 
