@@ -27,6 +27,8 @@ int Program::build(SiteMan* sites){
 glp_prob *lp;
 int ia[1+1000], ja[1+1000];
 double ar[1+1000];
+int n = sites->get_nb_sites();
+int m = sites->get_nb_to_build();
 //j'ai rajouter des booléens aux sites
 //parti init du problème
 //Ci est fixe

@@ -32,6 +32,7 @@ public:
 	// accessors
 	Site* get(int pos);
 	int get_nb_to_build();
+	int get_nb_sites();
 
 private:
 	std::vector<Site*> *sites;

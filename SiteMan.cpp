@@ -114,3 +114,7 @@ Site* SiteMan::get(int pos) {
 int SiteMan::get_nb_to_build() {
 	return nb_to_build;
 }
+
+int SiteMan::get_nb_sites() {
+	return this->sites->size();
+}
