@@ -117,9 +117,8 @@ int x = 2;
 }
 
 
-std::string Program::solve(){
+std::string Program::solve(int m){
  /*partie solve*/
-  //ici va juste falloir donner le lp
   /* solve problem */
   glp_simplex(lp, NULL);
   /* recover and display results */
