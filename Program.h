@@ -23,7 +23,7 @@ public:
 	std::string solve();
 
 private:
-	char* prob; // doit contenir l'objet problem cree par l'api GLPK
+	glp_prob* lp; // doit contenir l'objet problem cree par l'api GLPK
 
 };
 #endif // !defined(EA_B9ACFDE7_CB62_468a_AB77_44879545335D__INCLUDED_)

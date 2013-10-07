@@ -23,8 +23,6 @@ Program::~Program(){
 
 
 int Program::build(SiteMan* sites){
-	
-glp_prob *lp;
 int ia[1+1000], ja[1+1000];
 double ar[1+1000];
 int n = sites->get_nb_sites();
@@ -44,9 +42,7 @@ glp_set_obj_dir(lp, GLP_MAX);
 //debut de la creation de l'equation de contrainte x1 + x2 + x3 = m
 //je l ai fait comme cela car c etait dans cet ordre la dans les exemples
  
- //to change
- glp_add_rows(lp, 3);
- //to change
+ glp_add_rows(lp, (square(n)-n)/2);
 
 //faudra faire passer m dans la fonction
  glp_set_row_name(lp, 1, "m");
