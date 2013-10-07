@@ -103,7 +103,7 @@ std::string Program::solve(){
   i = 0;
   while (i < m + 1)
   {
-        printf("x = %g;\n”, x[i]);
+        printf("x = %g;\n", x[i]);
   }
  
  /* housekeeping */

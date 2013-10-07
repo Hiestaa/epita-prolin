@@ -81,6 +81,32 @@ int SiteMan::parse(const char* filename){
 	return ret;
 }
 
+
+int* get_dist_map(int dist_max) {
+	int dist_map[1000][1000];
+	int dist = 0;
+	Site* s1, s2;
+	for (int i = 0; i < sites->size(); ++i) {	
+		for (int j = 0; j < sites->size(); ++j)	{
+			if (i == j) {
+				dist_map[i][j] = -1;
+			}
+			else {
+				s1 = this->get(i);
+				s2 = this->get(j);
+
+				if (sqdist(s1->pos_x, s1->pos_y, s2->pos_x, s2->pos_y) <= square(dist_max)) {
+					dist_map[i][j] = 1;
+				}
+				else {
+					dist_map[i][j] = 0;
+				}
+			}
+		}
+	}
+	return dist_map;
+}
+
 Site* SiteMan::get(int pos) {
 	return this->sites->at(pos);
 }

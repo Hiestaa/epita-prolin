@@ -15,3 +15,12 @@ std::vector<std::string> split(const std::string &s, char delim) {
     split(s, delim, elems);
     return elems;
 }
+
+
+int square(int n) {
+	return n * n;
+}
+
+int sqdist(int x1, int y1, int x2, int y2) {
+	return square(x1 - x2) + square(y1 - y2);
+}

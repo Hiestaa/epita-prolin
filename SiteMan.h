@@ -24,6 +24,10 @@ public:
 
 	void add_site(Site* new_site);
 	int parse(const char* filename);
+	// retourne une matrice telle que 
+	// pour tout site i et j, mat[i][j] == 1 si dist(i, j) < dist_max, 0 sinon.
+	//   note : si i == j, dist[i][j] == -1
+	int* get_dist_mat(int dist_max);
 
 	// accessors
 	Site* get(int pos);
