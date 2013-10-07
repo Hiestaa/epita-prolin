@@ -43,7 +43,7 @@ int Program::build(SiteMan* sites){
 
   //debut de la creation de l'equation de contrainte x1 + x2 + x3 = m
   //je l ai fait comme cela car c etait dans cet ordre la dans les exemples
-  glp_add_rows(lp, ((n^2)-n)/2 + 2);
+  glp_add_rows(lp, ((n^2)-n)/2 + 1);
   //attribution de x1 x2 avec ces coeffs dans la fonction maximise
   glp_add_cols(lp, n);
 
@@ -52,7 +52,7 @@ int Program::build(SiteMan* sites){
   glp_set_row_bnds(lp, 1, GLP_FX, m, m);
 
   int x = 2;
-  while (x < (((n^2)-n)/2 + 2 ))
+  while (x < (((n^2)-n)/2))
   {
     glp_set_row_name(lp, x, num2str(x).c_str());
     glp_set_row_bnds(lp, x, GLP_DB, 0, 1);
