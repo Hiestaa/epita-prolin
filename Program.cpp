@@ -120,6 +120,7 @@ std::string Program::solve(){
   while (i < m + 1)
   {
         printf("x = %g;\n", x[i]);
+        i++;
   }
  
  /* housekeeping */
