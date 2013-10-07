@@ -20,6 +20,6 @@ public:
 	int id;
 	int pos_x;
 	int pos_y;
-       
+        bool boo;
 };
 #endif // !defined(EA_94B94CD5_08E7_4045_8E55_5968CCCE1B44__INCLUDED_)
