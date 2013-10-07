@@ -29,6 +29,7 @@ int ia[1+1000], ja[1+1000];
 double ar[1+1000];
 int n = sites->get_nb_sites();
 int m = sites->get_nb_to_build();
+int d[][] = sites->get_dist_map();
 //j'ai rajouter des booléens aux sites
 //parti init du problème
 //Ci est fixe
@@ -100,8 +101,8 @@ int x = 2;
 // dij(Bi + Bj) <=1 donc rajouter le <= 1
   if (i <> j)
   {
-   ia[] = 1, ja[] = 1, ar[1] = 1;   
-   ia[] = 1, ja[] = 1, ar[1] = 1;
+   ia[] = 1, ja[] = 1, ar[1] = d[i][j];   
+   ia[] = 1, ja[] = 1, ar[1] = d[i][j];
    //coeff ar[]  a changer ici dij
    i++;
   }
