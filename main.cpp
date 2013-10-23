@@ -35,7 +35,7 @@ int main(int argc, const char* argv[])
 
 	std::cout << "Solving program..." << std::endl;
 	std::cout << "Result: " << std::endl;
-	p->solve(siteman->get_nb_sites());
+	p->solve(siteman->get_nb_sites(), siteman);
 
 	delete p;
 	delete siteman;

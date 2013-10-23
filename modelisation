@@ -1,7 +1,7 @@
 Soient les variables suivantes :
 	Bi est une variable booleenne de decision qui est a vraie si le site i est choisi
 	Ci est la capacite du site i
-	Dij est une variable booleenne qui est a vraie si la distance entre le site i et le site j est inferieure a la limite de distance
+	Dij est une donnee  qui est la distance entre le site i et le site j est inferieure a la limite de distance
 
 MAXIMISER :
 	SOMME(Bi * Ci)
@@ -9,5 +9,5 @@ MAXIMISER :
 Sous les contraintes
 	SOMME(Bi) = m <=> B1 + B2 + B3 + B4 ... + Bn = m
 		On doit choisir exactement m sites
-	Dij * (Bi + Bj) <= 1 si i != j <=> Dij * Bi + Dij * Bj <= 1
+	Dij * (Bi + Bj) <= 100 si i != j 
 		Si deux sites (differents) sont choisi, leur distance doit etre inferieure a la limite

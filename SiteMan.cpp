@@ -95,12 +95,13 @@ void SiteMan::get_dist_mat(int dist_max, int dist_map[1000][1000]) {
 				s1 = get(i);
 				s2 = get(j);
 
-				if (sqdist(s1->pos_x, s1->pos_y, s2->pos_x, s2->pos_y) <= square(dist_max)) {
-					dist_map[i][j] = 1;
-				}
-				else {
-					dist_map[i][j] = 0;
-				}
+				dist_map[i][j] = sqdist(s1->pos_x, s1->pos_y, s2->pos_x, s2->pos_y);
+				// if (sqdist(s1->pos_x, s1->pos_y, s2->pos_x, s2->pos_y) <= square(dist_max)) {
+				// 	dist_map[i][j] = 1;
+				// }
+				// else {
+				// 	dist_map[i][j] = 0;
+				// }
 			}
 		}
 	}

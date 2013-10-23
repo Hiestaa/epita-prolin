@@ -24,7 +24,7 @@ public:
 	SiteMan *m_SiteMan;
 
 	int build(SiteMan* sites);
-	std::string solve(int m);
+	std::string solve(int m, SiteMan* sites);
 
 private:
 	glp_prob* lp; // doit contenir l'objet problem cree par l'api GLPK
