@@ -14,6 +14,7 @@
 #include <cstring>
 #include <glpk.h>
 #include "SiteMan.h"
+#include "func.h"
 
 class Program
 {

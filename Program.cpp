@@ -26,9 +26,9 @@ int Program::build(SiteMan* sites){
   double ar[1+1000];
   int n = sites->get_nb_sites();
   int m = sites->get_nb_to_build();
-  int d[1000][1000];
+  int row_number = 1;
+  int tab_offset = 1;
   std::cout << "Calculating distance matrix" << std::endl;
-  sites->get_dist_mat(50, d);
   std::cout << "Creating linear problem" << std::endl;
   //j'ai rajouter des booléens aux sites
   //parti init du problème
@@ -41,86 +41,63 @@ int Program::build(SiteMan* sites){
   glp_set_prob_name(lp, "PLAM");
   glp_set_obj_dir(lp, GLP_MAX);
 
-  int nbrows = (square(n)-n)/2 + n;
+ // int nbrows = (square(n)-n)/2 + n;
 
   //debut de la creation de l'equation de contrainte x1 + x2 + x3 = m
   //je l ai fait comme cela car c etait dans cet ordre la dans les exemples
   std::cout << "Nb rows: " << ((square(n)-n)/2 + 1) << std::endl;
-  glp_add_rows(lp, nbrows);
+  glp_add_rows(lp, 1);
   //attribution de x1 x2 avec ces coeffs dans la fonction maximise
 
   //faudra faire passer m dans la fonction
-  glp_set_row_name(lp, 1, "nbentrepots");
-  glp_set_row_bnds(lp, 1, GLP_DB, 0.0, m - 1);
+  glp_set_row_name(lp, row_number, "nbentrepots");
+  glp_set_row_bnds(lp, row_number, GLP_FX, m, m);
 
-  int x = 2;
-  while (x < nbrows)
-  {
-    glp_set_row_name(lp, x, num2str(x).c_str());
-    glp_set_row_bnds(lp, x, GLP_DB, 0.0, 100);
-    x++;
-  }
   //equation de maximise
   //fonction maximiser
   //B1*C1 + ... Bn*Cn 
 
-  glp_add_cols(lp, n);
-
-
-  int j = 1;
-  while(j < n)
-  {
-	 //strcat correct coeff a changer
-    glp_set_col_name(lp, j, num2str(j).c_str());
-    //glp_set_col_kind(lp, j, GLP_BV);
-    glp_set_col_bnds(lp, j, GLP_DB, 0.0, 1.0);
-    glp_set_col_kind(lp, j, GLP_IV);
-    glp_set_obj_coef(lp, j, sites->get(j)->cap);
-    j++;
-  }
-
+  glp_add_cols(lp, sites->get_nb_sites());
 
   //equation de contrainte representer de maniere matricielle Mij, i represente les lignes et j les colonnes r etant la valeur
   // nous on a deux equation de contrainte
   //1er equation :(B1 + ... Bn) = m qui correspond a 
   //tant que la liste des sites man n est pas nuls placer les coeffs Ci devant les xi, manque l'attribution des coefficient Ci
-  int i = 1;
-  int h = 1;
-  while (i < n)
+
+
+  for(int j = 0; j < sites->get_nb_sites(); j++)
   {
-    ia[h] = 1, ja[h] = i, ar[h] = 1;   
-    //coeff i
-    i++;
-    h++;
+   //strcat correct coeff a changer
+    glp_set_col_kind(lp, j + 1, GLP_BV);
+    glp_set_obj_coef(lp, j + 1, sites->get(j)->cap);
+    ia[tab_offset] = row_number;
+    ja[tab_offset] = j + 1;
+    ar[tab_offset] = 1;
+    tab_offset++;
   }
+
+
 
   //2eme equation : 
   //dij(Bi + Bj) <=1 si i diff de j
   //dij = sqrt((xi-xj)^2+(yi-yj)^2)
-int tmp = h;
-int range = 2;
- int mem = 0;
-  for (int ptr = 1; ptr < n; ptr++) {
-      for (i = ptr; i <= n; i++) {
-          for (j = 1; j <= n; j++) {
-              
-              ia[tmp] = range, ja[tmp] = j;
-              
-              if (j < ptr)
-                  ar[tmp] = 0;
-              else if (j == ptr)
-                  mem = tmp;
-              else if (j == i + ptr) {
-                  ar[tmp] = d[ptr][i];
-                  ar[mem] = d[ptr][i];
-                  mem = 0;
-              }
-              else
-                  ar[tmp] = 0;
-              tmp++;
+  for (int ptr = 0; ptr < sites->get_nb_sites(); ptr++) {
+    for (int i = ptr; i < sites->get_nb_sites(); i++) {
+      if (i != ptr && sqdist(sites->get(ptr)->pos_x, sites->get(ptr)->pos_y, sites->get(i)->pos_x, sites->get(i)->pos_y) < square(50)) {
+        glp_add_rows(lp, 1);
+        row_number++;
+        glp_set_row_bnds(lp, row_number,  GLP_DB, 0.0, 1.0);
+
+        for (int j = 0; j < sites->get_nb_sites(); j++) {
+          if (j == i || j == ptr) {
+            ia[tab_offset] = row_number;
+            ja[tab_offset] = j + 1;
+            ar[tab_offset] = 1;
+            tab_offset++;
           }
-          range++;
+        }
       }
+    }
   }
 
   //tot = nombre de rencontre entre i et j dans un paquets de n ou i et j sont differents
@@ -143,7 +120,14 @@ int range = 2;
   //   y++;
   // }
 	//ligne a modif apres
-	glp_load_matrix(lp, tmp - 1, ia, ja, ar);
+  for (int i = 0; i < tab_offset; ++i)
+  {
+    std::cout << "ia[" << i << "] = " << ia[i] << "; ";
+    std::cout << "ja[" << i << "] = " << ja[i] << "; ";
+    std::cout << "ar[" << i << "] = " << ar[i] << "; ";
+    std::cout << "// mat[" << ia[i] << "][" << ja[i] << "] = " << ar[i] << "; " << std::endl;
+  }
+	glp_load_matrix(lp, tab_offset - 1, ia, ja, ar);
   //finir la fonction et connecter solve avec le reste
 	//fonction distance a faire + tard
 	//surement getter et setter des sites à mettre en place
@@ -163,22 +147,20 @@ std::string Program::solve(int m, SiteMan* sites){
   z = glp_get_obj_val(lp);
 
 
-  int i = 1;
+  int i = 0;
   int res = 0;
   int total = 0;
-  while (i < m + 1)
+  while (i < sites->get_nb_sites())
   {
-    if (glp_mip_col_val(lp, i) > 0) {
-      total += sites->get(i)->cap;
-      res = 1;
+    res = glp_mip_col_val(lp, i + 1);
+    if (res > 0) {
+       total += sites->get(i)->cap;
     }
-    else
-      res = 0;
-    std::cout << "x" << i << " = " << res << std::endl;
+    std::cout << "x" << (i + 1) << " = " << res << std::endl;
     i++;
   }
 
-  std::cout << "Total storage: " << total << std::endl;
+  std::cout << "Total storage: " << z << std::endl;
   std::cout << "Now freeing memory" << std::endl;
  
  /* housekeeping */
